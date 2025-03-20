@@ -96,7 +96,7 @@ def get_product(request):
                     'id': prod.id,
                     'product_name': prod.product_name,
                     'description': prod.description,
-                    'price': f"{prod.price:,}" if prod.price is not None else 0.0,
+                    'price': float(prod.price) if prod.price is not None else 0.0,
                     'stock_qnty': prod.stock_qnty,
                     'product_status': prod.product_status,
                     'discount_rate': float(prod.discount_rate) if prod.discount_rate is not None else 0.0,
