@@ -175,42 +175,6 @@ class Products(models.Model):
     def __str__(self):
         return self.product_name
     
-# class UserRole(models.Model):
-#     class UserRoleChoices(models.TextChoices):
-#         ADMIN = "admin", "Admin"
-#         CUSTOMER = "customer", "Customer"
-
+# class header(models.Model):
 #     id = models.AutoField(primary_key=True)
-#     role = models.CharField(
-#         max_length=15, choices=UserRoleChoices.choices, verbose_name="Role"
-#     )
-#     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
-#     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated At")
-
-#     def __str__(self):
-#         return self.role
-
-# class User(models.Model):
-#     class UserStatus(models.TextChoices):
-#         ACTIVE = "active", "Active"
-#         INACTIVE = "inactive", "Inactive"
-#         BLOCK = "block", "Block"
-
-#     id = models.AutoField(primary_key=True)
-#     first_name = models.CharField(max_length=50, verbose_name="First Name")
-#     last_name = models.CharField(max_length=50, verbose_name="Last Name")
-#     email = models.CharField(max_length=60, unique=True, verbose_name="Email")
-#     password = models.CharField(max_length=20,verbose_name="Password")
-#     confirm_password = models.CharField(max_length=20,verbose_name="Confirm Password")
-#     phone_no = models.CharField(max_length=20, verbose_name="Phone Number")
-#     user_status = models.CharField(max_length=8,choices=UserStatus.choices,default=UserStatus.ACTIVE)
-#     user_img = models.ImageField(upload_to="users/",null=True,blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-    
-#     user_role = models.ForeignKey("User_roles", on_delete=models.CASCADE, verbose_name="User Role")
-    
-#     def __str__(self):
-#         return self.first_name
-    
     
