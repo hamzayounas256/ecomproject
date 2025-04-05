@@ -140,15 +140,17 @@ class Products(models.Model):
     
     discount_rate = models.DecimalField(
         max_digits=5, decimal_places=2,
-        validators=[MinValueValidator(Decimal('0.00')), MaxValueValidator(Decimal('100.00'))],
+        validators=[MinValueValidator(Decimal('0.00'))],
         null=True, blank=True, verbose_name="Discount Rate"
-    )
+    )# discount rate in price (percentage not allowed)
     
     new_arrival = models.BooleanField(default=False, verbose_name="New Arrival")
     
     most_viewed = models.BooleanField(default=False, verbose_name="Most Viewed")
     
     top_selling = models.BooleanField(default=False, verbose_name="Top Selling")
+    
+    discount_offer = models.BooleanField(default=False,verbose_name='Discount Offer')
     
     brand = models.ForeignKey(
         'Brand',
@@ -174,7 +176,79 @@ class Products(models.Model):
 
     def __str__(self):
         return self.product_name
+
+class Header(models.Model):
+    order_no = models.AutoField(primary_key=True)
     
-# class header(models.Model):
-#     id = models.AutoField(primary_key=True)
+    order_date = models.DateField(auto_now_add=True, verbose_name="Order Date")
+    order_time = models.TimeField(auto_now_add=True, verbose_name="Order Time")
     
+    cust_name = models.CharField(max_length=60, verbose_name="Customer Name")
+    cust_address = models.CharField(max_length=100, verbose_name="Customer Address")
+    cust_phone_no = models.CharField(max_length=13, verbose_name="Phone Number")
+    cust_email = models.EmailField(max_length=50, verbose_name="Email")
+    cust_nic = models.CharField(max_length=15, verbose_name="NIC")
+
+    total_qnty = models.PositiveIntegerField(default=0, verbose_name="Total Quantity")
+    
+    total_amount = models.DecimalField(
+        max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))],
+        verbose_name="Total Amount"
+    )
+    
+    total_sale_amount = models.DecimalField(
+        max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))],
+        verbose_name="Total Sale Amount"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated At")
+
+    def __str__(self):
+        return f"Order #{self.order_no} - {self.cust_name}"
+
+class Detail(models.Model):
+    id = models.AutoField(primary_key=True)
+    
+    order_no = models.ForeignKey('Header', on_delete=models.CASCADE, verbose_name="Order No")
+    product_code = models.ForeignKey('Products', on_delete=models.CASCADE, verbose_name="Product")
+    
+    product_name = models.CharField(max_length=60, verbose_name="Product Name")
+    
+    product_rate = models.DecimalField(
+        max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))],
+        verbose_name="Product Rate"
+    )
+
+    product_qnty = models.DecimalField(
+        max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))],
+        verbose_name="Quantity"
+    )
+
+    product_amount = models.DecimalField(
+        max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))],
+        verbose_name="Amount"
+    )
+
+    product_sale_rate = models.DecimalField(
+        max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))],
+        verbose_name="Sale Rate"
+    )
+
+    product_sale_amount = models.DecimalField(
+        max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))],
+        verbose_name="Sale Amount"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated At")
+
+    def __str__(self):
+        return f"{self.product_name} (Order #{self.order_no_id})"
