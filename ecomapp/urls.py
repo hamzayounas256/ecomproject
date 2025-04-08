@@ -1,7 +1,10 @@
 from django.urls import path
 # from .views import get_capacity,post_capacity,update_capacity
 from ecomapp.products.productcrud import post_product,get_product,get_all_product,update_product,delete_product
-from ecomapp.products.brandcrud import get_brand,post_brand,update_brand,delete_brand
+from ecomapp.brands.brand_create import brand_create
+from ecomapp.brands.brand_read import brand_read,brand_read_all
+from ecomapp.brands.brand_update import brand_update
+from ecomapp.brands.brand_delete import brand_delete
 from ecomapp.products.categorycrud import get_category,post_category,update_category,delete_category
 from ecomapp.products.capacitycrud import get_capacity,post_capacity,update_capacity,delete_capacity
 from ecomapp.header.header_create import header_create
@@ -12,10 +15,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('brands/', get_brand),
-    path('brands/create/', post_brand),
-    path('brands/update/', update_brand),
-    path('brands/delete/', delete_brand),
+    path('brands/', brand_read),
+    path('brands/all', brand_read_all),
+    path('brands/create/', brand_create),
+    path('brands/update/', brand_update),
+    path('brands/delete/', brand_delete),
     
     path('categories/', get_category),
     path('categories/create/', post_category),
