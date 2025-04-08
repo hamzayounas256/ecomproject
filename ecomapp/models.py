@@ -113,10 +113,20 @@ class Products(models.Model):
     
     description = models.TextField(verbose_name="Description")
     
-    price = models.DecimalField(
+    product_rate = models.DecimalField(
         max_digits=10, decimal_places=2,
         validators=[MinValueValidator(Decimal('0.00'))],
-        verbose_name="Price"
+        verbose_name="Product Rate"
+    )
+    discount = models.DecimalField(
+        max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))],
+        null=True, blank=True, verbose_name="Discount"
+    )
+    sale_rate = models.DecimalField(
+        max_digits=10, decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))],
+        null=True, blank=True, verbose_name="Sale Rate"
     )
     
     stock_qnty = models.PositiveIntegerField(
@@ -137,12 +147,6 @@ class Products(models.Model):
         blank=True,
         verbose_name="Product Image"
     )
-    
-    discount_rate = models.DecimalField(
-        max_digits=5, decimal_places=2,
-        validators=[MinValueValidator(Decimal('0.00'))],
-        null=True, blank=True, verbose_name="Discount Rate"
-    )# discount rate in price (percentage not allowed)
     
     new_arrival = models.BooleanField(default=False, verbose_name="New Arrival")
     
@@ -178,10 +182,20 @@ class Products(models.Model):
         return self.product_name
 
 class Header(models.Model):
+    class HeaderStatus(models.TextChoices):
+        PENDING = "pending"
+        CONFIRMED = "confirmed"
+        PROCESSING = "processing"
+        SHIPPED = "shipped"
+        OUT_FOR_DELIVERY = "out_for_delivery"
+        DELIVERED = "delivered"
+        CANCELLED = "cancelled"
+        
+    
     order_no = models.AutoField(primary_key=True)
     
-    order_date = models.DateField(auto_now_add=True, verbose_name="Order Date")
-    order_time = models.TimeField(auto_now_add=True, verbose_name="Order Time")
+    order_date = models.DateField(verbose_name="Order Date")
+    order_time = models.TimeField(verbose_name="Order Time")
     
     cust_name = models.CharField(max_length=60, verbose_name="Customer Name")
     cust_address = models.CharField(max_length=100, verbose_name="Customer Address")
@@ -202,6 +216,13 @@ class Header(models.Model):
         validators=[MinValueValidator(Decimal('0.00'))],
         verbose_name="Total Sale Amount"
     )
+    
+    order_status = models.CharField(
+        max_length=17,
+        choices=HeaderStatus.choices,
+        default=HeaderStatus.PENDING,
+        verbose_name="Status"
+    )
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated At")
@@ -211,7 +232,7 @@ class Header(models.Model):
 
 class Detail(models.Model):
     id = models.AutoField(primary_key=True)
-    
+        
     order_no = models.ForeignKey('Header', on_delete=models.CASCADE, verbose_name="Order No")
     product_code = models.ForeignKey('Products', on_delete=models.CASCADE, verbose_name="Product")
     
@@ -223,11 +244,7 @@ class Detail(models.Model):
         verbose_name="Product Rate"
     )
 
-    product_qnty = models.DecimalField(
-        max_digits=10, decimal_places=2,
-        validators=[MinValueValidator(Decimal('0.00'))],
-        verbose_name="Quantity"
-    )
+    product_qnty = models.PositiveIntegerField(default=0, verbose_name="Product Qnty")
 
     product_amount = models.DecimalField(
         max_digits=10, decimal_places=2,
