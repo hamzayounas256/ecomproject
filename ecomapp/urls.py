@@ -12,8 +12,10 @@ from ecomapp.capacity.capacity_read import capacity_read,capacity_read_all
 from ecomapp.capacity.capacity_update import capacity_update
 from ecomapp.capacity.capacity_delete import capacity_delete
 
-
-from ecomapp.category.categorycrud import get_category,post_category,update_category,delete_category
+from ecomapp.category.category_create import category_create
+from ecomapp.category.category_read import category_read,category_read_all
+from ecomapp.category.category_update import category_update
+from ecomapp.category.category_delete import category_delete
 
 from ecomapp.header.header_create import header_create
 from ecomapp.header.header_read import header_read
@@ -29,10 +31,11 @@ urlpatterns = [
     path('brands/update/', brand_update),
     path('brands/delete/', brand_delete),
     
-    path('categories/', get_category),
-    path('categories/create/', post_category),
-    path('categories/update/', update_category),
-    path('categories/delete/', delete_category),
+    path('categories/', category_read),
+    path('categories/all', category_read_all),
+    path('categories/create/', category_create),
+    path('categories/update/', category_update),
+    path('categories/delete/', category_delete),
     
     path('capacities/', capacity_read),
     path('capacities/all', capacity_read_all),
