@@ -1,12 +1,20 @@
 from django.urls import path
 # from .views import get_capacity,post_capacity,update_capacity
 from ecomapp.products.productcrud import post_product,get_product,get_all_product,update_product,delete_product
+
 from ecomapp.brands.brand_create import brand_create
 from ecomapp.brands.brand_read import brand_read,brand_read_all
 from ecomapp.brands.brand_update import brand_update
 from ecomapp.brands.brand_delete import brand_delete
-from ecomapp.products.categorycrud import get_category,post_category,update_category,delete_category
-from ecomapp.products.capacitycrud import get_capacity,post_capacity,update_capacity,delete_capacity
+
+from ecomapp.capacity.capacity_create import capacity_create
+from ecomapp.capacity.capacity_read import capacity_read,capacity_read_all
+from ecomapp.capacity.capacity_update import capacity_update
+from ecomapp.capacity.capacity_delete import capacity_delete
+
+
+from ecomapp.category.categorycrud import get_category,post_category,update_category,delete_category
+
 from ecomapp.header.header_create import header_create
 from ecomapp.header.header_read import header_read
 from ecomapp.detail.detail_create import detail_create
@@ -26,10 +34,11 @@ urlpatterns = [
     path('categories/update/', update_category),
     path('categories/delete/', delete_category),
     
-    path('capacities/', get_capacity),
-    path('capacities/create/', post_capacity),
-    path('capacities/update/', update_capacity),
-    path('capacities/delete/', delete_capacity),
+    path('capacities/', capacity_read),
+    path('capacities/all', capacity_read_all),
+    path('capacities/create/', capacity_create),
+    path('capacities/update/', capacity_update),
+    path('capacities/delete/', capacity_delete),
     
     path('products/', get_product),
     path('products/all', get_all_product),
