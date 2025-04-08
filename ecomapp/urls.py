@@ -1,6 +1,9 @@
 from django.urls import path
-# from .views import get_capacity,post_capacity,update_capacity
-from ecomapp.products.productcrud import post_product,get_product,get_all_product,update_product,delete_product
+
+from ecomapp.products.product_create import product_create
+from ecomapp.products.product_read import product_read, product_read_all
+from ecomapp.products.product_update import product_update
+from ecomapp.products.product_delete import product_delete
 
 from ecomapp.brands.brand_create import brand_create
 from ecomapp.brands.brand_read import brand_read,brand_read_all
@@ -19,8 +22,10 @@ from ecomapp.category.category_delete import category_delete
 
 from ecomapp.header.header_create import header_create
 from ecomapp.header.header_read import header_read
+
 from ecomapp.detail.detail_create import detail_create
 from ecomapp.detail.detail_read import detail_read
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -43,11 +48,11 @@ urlpatterns = [
     path('capacities/update/', capacity_update),
     path('capacities/delete/', capacity_delete),
     
-    path('products/', get_product),
-    path('products/all', get_all_product),
-    path('products/create/', post_product),
-    path('products/update/',update_product),
-    path('products/delete/',delete_product),
+    path('products/', product_read),
+    path('products/all', product_read_all),
+    path('products/create/', product_create),
+    path('products/update/',product_update),
+    path('products/delete/',product_delete),
     
     path('headers/', header_read),
     path('headers/create/', header_create),
