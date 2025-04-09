@@ -39,12 +39,12 @@ def detail_create(request):
         except Products.DoesNotExist:
             return JsonResponse({"message": "Invalid product", "success": False}, status=status.HTTP_400_BAD_REQUEST)
 
-        discount_rate = product.discount_rate or Decimal('0.00')
+        discount = product.discount or Decimal('0.00')
         product_name = product.product_name
         product_rate = product.product_rate
 
         product_amount = product_rate * product_qnty
-        product_sale_rate = product_rate - discount_rate
+        product_sale_rate = product_rate - discount
         product_sale_amount = product_sale_rate * product_qnty
 
         detail = Detail.objects.create(

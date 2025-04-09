@@ -206,13 +206,13 @@ class Header(models.Model):
     total_qnty = models.PositiveIntegerField(default=0, verbose_name="Total Quantity")
     
     total_amount = models.DecimalField(
-        max_digits=10, decimal_places=2,
+        max_digits=10, decimal_places=2,default=0.00,
         validators=[MinValueValidator(Decimal('0.00'))],
         verbose_name="Total Amount"
     )
     
     total_sale_amount = models.DecimalField(
-        max_digits=10, decimal_places=2,
+        max_digits=10, decimal_places=2,default=0.00,
         validators=[MinValueValidator(Decimal('0.00'))],
         verbose_name="Total Sale Amount"
     )

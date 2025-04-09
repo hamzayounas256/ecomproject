@@ -25,9 +25,6 @@ def header_create(request):
         cust_phone_no = request.POST.get('cust_phone_no')
         cust_email = request.POST.get('cust_email')
         cust_nic = request.POST.get('cust_nic')
-        # total_qnty = int(request.POST.get('total_qnty',0))
-        # total_amount = Decimal(request.POST.get('total_amount','0.00'))
-        # total_sale_amount = Decimal(request.POST.get('total_sale_amount','0.00'))
         
         head = Header(
             order_date=order_date,
@@ -37,9 +34,6 @@ def header_create(request):
             cust_phone_no=cust_phone_no,
             cust_email=cust_email,
             cust_nic = cust_nic,
-            # total_qnty=total_qnty,
-            # total_amount=total_amount,
-            # total_sale_amount=total_sale_amount
         )
         head.save()
         return JsonResponse({"message":"Record created successfully","success":True},status=status.HTTP_201_CREATED)

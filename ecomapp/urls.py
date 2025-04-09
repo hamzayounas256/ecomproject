@@ -25,6 +25,7 @@ from ecomapp.header.header_read import header_read
 
 from ecomapp.detail.detail_create import detail_create
 from ecomapp.detail.detail_read import detail_read
+from ecomapp.detail.detail_delete import detail_delete
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -59,7 +60,8 @@ urlpatterns = [
     
     
     path('details/', detail_read),
-    path('details/create/', detail_create)
+    path('details/create/', detail_create),
+    path('details/delete/', detail_delete),
     
 ]
 if settings.DEBUG:
