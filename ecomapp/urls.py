@@ -3,6 +3,7 @@ from django.urls import path
 from ecomapp.auth.register import register
 from ecomapp.auth.login import login
 from ecomapp.auth.logout import logout
+from ecomapp.auth.auth_update import auth_update
 
 from ecomapp.products.product_create import product_create
 from ecomapp.products.product_read import product_read, product_read_all
@@ -39,6 +40,7 @@ urlpatterns = [
     path('register/', register),
     path('login/', login),
     path('logout/', logout),
+    path('update/', auth_update),
     
     path('brands/', brand_read),
     path('brands/all', brand_read_all),
