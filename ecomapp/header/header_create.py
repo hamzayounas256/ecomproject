@@ -124,7 +124,8 @@ def header_create(request):
                 product_qnty=quantity,
                 product_amount=product_amount,
                 product_sale_rate=product_sale_rate,
-                product_sale_amount=product_sale_amount
+                product_sale_amount=product_sale_amount,
+                product_img=product.product_img,
             )
             details.append(detail)
             

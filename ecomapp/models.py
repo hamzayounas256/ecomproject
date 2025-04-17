@@ -117,6 +117,7 @@ class Detail(models.Model):
     product_amount = models.DecimalField(max_digits=10, decimal_places=2,validators=[MinValueValidator(Decimal('0.00'))],verbose_name="Amount")
     product_sale_rate = models.DecimalField(max_digits=10, decimal_places=2,validators=[MinValueValidator(Decimal('0.00'))],verbose_name="Sale Rate")
     product_sale_amount = models.DecimalField(max_digits=10, decimal_places=2,validators=[MinValueValidator(Decimal('0.00'))],verbose_name="Sale Amount")
+    product_img = models.ImageField(upload_to='detail/')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated At")
 
