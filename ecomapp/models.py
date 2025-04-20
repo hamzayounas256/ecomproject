@@ -143,3 +143,8 @@ class Logout(models.Model):
     id=models.AutoField(primary_key=True)
     token=models.CharField(max_length=500,null=False)
     user_id=models.ForeignKey(Users,on_delete=models.CASCADE)
+    
+class OTP(models.Model):
+    id=models.AutoField(primary_key=True)
+    otp=models.CharField(max_length=10,null=False)
+    

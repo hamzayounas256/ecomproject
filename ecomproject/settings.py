@@ -139,6 +139,36 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER="hamzayounascs@gmail.com"
+EMAIL_HOST_PASSWORD="ccup mvyq nmjv eyap"
 
+# Secondary email configuration
+SECONDARY_EMAIL_HOST_USER = "hamzayounascs@gmail.com"
+SECONDARY_EMAIL_HOST_PASSWORD = "ccup mvyq nmjv eyap"
+
+# Custom function to switch email settings dynamically
+def set_email_config(primary=True):
+    """
+    Configure email settings dynamically.
+    :param primary: If True, use the primary email. Otherwise, use the secondary email.
+    :return: A dictionary containing email settings.
+    """
+    
+    if primary:
+        EMAIL_SETTINGS = {
+            "EMAIL_HOST_USER": SECONDARY_EMAIL_HOST_USER,
+            "EMAIL_HOST_PASSWORD": SECONDARY_EMAIL_HOST_PASSWORD,
+        }
+    else:
+        EMAIL_SETTINGS = {
+            "EMAIL_HOST_USER": EMAIL_HOST_USER,
+            "EMAIL_HOST_PASSWORD": EMAIL_HOST_PASSWORD,
+        }
+    return EMAIL_SETTINGS
 MEDIA_URL = '/media/'  # URL path for accessing media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  
