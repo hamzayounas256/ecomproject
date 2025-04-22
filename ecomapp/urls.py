@@ -1,9 +1,9 @@
 from django.urls import path
 
-from ecomapp.auth.register import register
 from ecomapp.auth.login import login
 from ecomapp.auth.logout import logout
 from ecomapp.auth.auth_update import auth_update
+from ecomapp.auth.register import register, verify_otp,resend_otp
 
 from ecomapp.products.product_create import product_create
 from ecomapp.products.product_read import product_read, product_read_all
@@ -37,10 +37,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     
-    path('register/', register),
     path('login/', login),
     path('logout/', logout),
     path('update/', auth_update),
+    path('register/', register),
+    path('verify/', verify_otp),
+    path('resend/', resend_otp),
     
     path('brands/', brand_read),
     path('brands/all', brand_read_all),

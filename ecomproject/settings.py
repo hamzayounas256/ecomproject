@@ -144,12 +144,12 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER="hamzayounascs@gmail.com"
-EMAIL_HOST_PASSWORD="ccup mvyq nmjv eyap"
+EMAIL_HOST_USER="ecom2025cs@gmail.com"
+EMAIL_HOST_PASSWORD="cqhn cehi eeba xdpu"
 
 # Secondary email configuration
-SECONDARY_EMAIL_HOST_USER = "hamzayounascs@gmail.com"
-SECONDARY_EMAIL_HOST_PASSWORD = "ccup mvyq nmjv eyap"
+SECONDARY_EMAIL_HOST_USER = "ecom2025cs@gmail.com"
+SECONDARY_EMAIL_HOST_PASSWORD = "cqhn cehi eeba xdpu"
 
 # Custom function to switch email settings dynamically
 def set_email_config(primary=True):

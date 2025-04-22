@@ -114,19 +114,19 @@ def send_register_email(email, otp, name):
     print(settings.EMAIL_HOST_USER)
     print(settings.EMAIL_HOST_PASSWORD)
     
-    subject = "Billilo - New Account Registration"
+    subject = "Crystal Solutions - New Account Registration"
     message = f"""Dear {name},
 
-Please use the One-Time Password (OTP) below to proceed with account registration.
+    Please use the One-Time Password (OTP) below to proceed with account registration.
 
-Your OTP: {otp}
+    Your OTP: {otp}
 
-This OTP is valid for the next 5 minutes. If you did not request a password reset, please ignore this email or contact our support team immediately.
+    This OTP is valid for the next 5 minutes. If you did not request a password reset, please ignore this email or contact our support team immediately.
 
-For security reasons, please do not share this OTP with anyone.
+    For security reasons, please do not share this OTP with anyone.
 
-Regards,
-Billilo"""
+    Regards,
+    Crystal Solution"""
     
     email_form = settings.EMAIL_HOST_USER
     recipient_list = [email]
