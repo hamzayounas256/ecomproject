@@ -12,7 +12,7 @@ logger=logging.getLogger(__name__)
 base_url = 'http://127.0.0.1:8000/ecomapi'
 
 def generate_otp():
-    otp=int(''.join(random.sample('0123456789',4)))
+    otp=int(''.join(random.sample('0123456789',6)))
     return otp
 
 @csrf_exempt
@@ -45,7 +45,7 @@ def register(request):
         otp_instance=OTP(otp=otp)
         otp_instance.save()
         send_register_email(email,otp,name)
-        return JsonResponse({"message":"OTP Sent Successfully","success":True},status=status.HTTP_200_OK)
+        return JsonResponse({"success":True,"message":"OTP Sent Successfully"},status=status.HTTP_200_OK)
         # user=Users.objects.create(
         #     name=name,
         #     email=email,
@@ -72,9 +72,9 @@ def verify_otp(request):
             role_id=request.POST.get('role_id')
             
             if not otp:
-                return JsonResponse({"message":"Required OTP","success":False},status=status.HTTP_400_BAD_REQUEST)
+                return JsonResponse({"success":False,"message":"Required OTP"},status=status.HTTP_400_BAD_REQUEST)
             if not OTP.objects.filter(otp=otp).exists():
-                return JsonResponse({"message":"Your OTP is expired","success":False},status=status.HTTP_401_UNAUTHORIZED)
+                return JsonResponse({"success":False,"message":"Your OTP is expired"},status=status.HTTP_401_UNAUTHORIZED)
             if OTP.objects.get(otp=otp):
                 user=Users.objects.create(
                     name=name,
@@ -86,9 +86,9 @@ def verify_otp(request):
                 )
                 return JsonResponse({"success":True,"message":"Record Added Successfully"},status=status.HTTP_201_CREATED)
         except Exception as e:
-            return JsonResponse({"message":"Error","error":str(e)},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return JsonResponse({"success":False,"message":"Error","error":str(e)},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
-        return JsonResponse({"message":"Method not allowed","success":False},status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return JsonResponse({"success":False,"message":"Method not allowed"},status=status.HTTP_405_METHOD_NOT_ALLOWED)
     
 @csrf_exempt
 def resend_otp(request):
@@ -99,12 +99,12 @@ def resend_otp(request):
             otp=generate_otp()
             if otp:
                 send_register_email(email,otp,name)
-                return JsonResponse({"message":"OTP send Successfully","success":True},status=status.HTTP_200_OK)
-            return JsonResponse({"message":"Error in OTP generated","success":False},status=status.HTTP_400_BAD_REQUEST)
+                return JsonResponse({"success":True,"message":"OTP send Successfully"},status=status.HTTP_200_OK)
+            return JsonResponse({"success":False,"message":"Error in OTP generated"},status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return JsonResponse({"message":"Error","error":str(e)},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return JsonResponse({"success":False,"message":"Error","error":str(e)},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
-        return JsonResponse({"message":"Method not allowed","success":False},status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return JsonResponse({"success":False,"message":"Method not allowed"},status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 def send_register_email(email, otp, name):
