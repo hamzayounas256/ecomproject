@@ -33,15 +33,18 @@ def login(request):
             access_token=refesh_token.access_token
             
             data={
+                "access_token":str(access_token),
+                "refresh_token":str(refesh_token),
                 'name':user.name,
                 'email':user.email,
                 'phone_no':user.phone_no,
                 'role':user.role_id.name,
+                'created_at':user.created_at,
                 'image':'http://127.0.0.1:8000/ecomapi'+user.image.url if user.image else ""
             }
             Logout(token=access_token,user_id=user).save()
             
-            return JsonResponse({"success":True,"message":"Login Successfully","access_token":str(access_token),"refresh_token":str(refesh_token),"data":data},status=status.HTTP_200_OK)
+            return JsonResponse({"success":True,"message":"Login Successfully","data":data},status=status.HTTP_200_OK)
         else:
             return JsonResponse({"success":False,"message":"Wrong Credentials"},status=status.HTTP_401_UNAUTHORIZED)
         
