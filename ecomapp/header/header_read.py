@@ -3,9 +3,11 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from ecomapp.models import Header, Detail
 from decimal import Decimal
+from django.conf import settings
 import logging
 
 logger = logging.getLogger(__name__)
+base_url = settings.BASE_URL
 
 @csrf_exempt
 def header_read(request):
@@ -49,7 +51,7 @@ def header_read(request):
                 'product_amount': det.product_amount,
                 'product_sale_rate': det.product_sale_rate,
                 'product_sale_amount': det.product_sale_amount,
-                'product_img':"http://127.0.0.1:8000/ecomapi"+det.product_img.url if det.product_img else "",
+                'product_img':base_url+det.product_img.url if det.product_img else "",
             } for det in details]
 
             return JsonResponse({"message": "Fetch Successfully", "success": True, 'header': data, 'detail': list_data}, status=status.HTTP_200_OK)

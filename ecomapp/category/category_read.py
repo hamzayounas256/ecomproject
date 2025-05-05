@@ -2,10 +2,11 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from ecomapp.models import Category
+from django.conf import settings
 import logging
 
 logger = logging.getLogger(__name__)
-base_url = 'http://127.0.0.1:8000/ecomapi'
+base_url = settings.BASE_URL
 
 @csrf_exempt
 def category_read(request):

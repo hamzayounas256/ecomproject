@@ -172,3 +172,5 @@ def set_email_config(primary=True):
     return EMAIL_SETTINGS
 MEDIA_URL = '/media/'  # URL path for accessing media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  
+
+BASE_URL = 'http://127.0.0.1:8000/ecomapi'
